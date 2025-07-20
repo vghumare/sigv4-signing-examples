@@ -46,7 +46,7 @@ public class HttpHelpers {
         String payloadHash = AWSSigner.calculateHash(payload);
         Map<String, String> headers = new HashMap<>();
         headers.put("x-amz-content-sha256", payloadHash);
-        headers.put("content-length", String.valueOf(payload.length()));
+        headers.put("content-length", String.valueOf(payload.getBytes(StandardCharsets.UTF_8).length));
         headers.put("content-type", "application/json");
 
         String authorizationHeader = AWSSigner.getAuthorizationHeader(service, region, "POST", uri, now, headers, payloadHash);
